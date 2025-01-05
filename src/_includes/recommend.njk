@@ -1,0 +1,32 @@
+---
+layout: base.njk
+title: all
+headline: Sprunki Game 
+---
+
+<div class="bg-yellow w-full max-w-[1300px] m-auto px-4 py-10">
+  <h1 class="text-2xl lg:text-4xl text-text font-black font-sans text-center">
+    <span class="underline decoration-double">{{ headline }} on Sprunki Sprunkr</span>
+  </h1>
+  <h2 class="mt-10 text-xl lg:text-3xl text-text font-black font-sans text-center">
+    <span class="underline decoration-double">#1 {{ headline }}</span> 
+  </h2>
+  <main class="mt-10 flex flex-row flex-wrap items-center justify-center gap-2">    
+    {% for key, value in gamedata %}
+      {% if (value.category == title) %}
+        <div class="w-28 h-28 bg-[url('{{ value.bgCover }}')] rounded-lg bg-cover shadow-lg bg-center cursor-pointer overflow-hidden relative">
+          <a href="{{ value.path }}" class="opacity-0 hover:opacity-100 bg-yellow bg-opacity-0 hover:bg-opacity-100 absolute w-full h-full top-0 left-0 z-99 flex items-end justify-start p-2">
+            {# <div class="w-full h-8 md:h-6 bg-light-blue bg-opacity-90 absolute bottom-0 flex items-center justify-center text-sm hidden hover:block"> #}
+              <h3 class="text-xs md:font-bold text-text text-center">{{ value.name }}</h3>
+            {# </div> #}
+          </a>
+        </div>
+      {% endif %}
+    {% endfor %}   
+          
+  </main>
+
+  {{ content | safe }}
+
+
+</div>

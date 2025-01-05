@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% set currentSlug = page.fileSlug if page.fileSlug else "index" %}
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  
+  <title>{{ metadata[currentSlug].title }}</title>
+  <meta name="description" content="{{ metadata[currentSlug].description }}">
+  <meta property="og:title" content="{{ metadata[currentSlug].title }}" />
+  <meta property="og:description" content="{{ metadata[currentSlug].description }}" />
+  <meta property="og:url" content="https://scrunkly.fun{{ page.url }}" />
+  <meta property="og:site_name" content="scrunkly.fun" />
+  <meta property="og:image" content="https://scrunkly.fun/assets/scrunkly.jpeg" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="{{ metadata[currentSlug].title }}" />
+  <meta name="twitter:description" content="{{ metadata[currentSlug].description }}" />
+  <meta name="twitter:image" content="https://scrunkly.fun/assets/scrunkly.jpeg" />
+  <link rel="canonical" href="https://scrunkly.fun{{ page.url }}" />
+  
+  <!-- <meta name="google-adsense-account" content="ca-pub-5331303144323541"> -->
+  <link id="favicon" rel="icon" href="/assets/favicon.ico?v=2" type="image/x-icon">
+  <link rel="stylesheet" href="/css/normalize.min.css">
+  <!-- <link rel="stylesheet" type="text/css" href="./toastify.min.css"> -->
+  <!-- <script type="text/javascript" src="./toastify-js.js"></script> -->
+  <script src="/js/tailwindcss.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            dark: '#3c4763',
+            purple: '#7287ba',
+            text: '#f8f8f8',
+            yellow: '#ffad63',
+            bright: '#fb7700'
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<div class="fixed inset-0 z-[-1]">
+  <img src="/assets/scrunkly.jpg" class="w-full h-full object-top object-cover">
+</div>
+<body class="w-full font-mono max-w-[1300px] m-auto text-text">
+  <header class="backdrop-blur-md h-28 flex justify-between items-center py-4 shadow-lg fixed top-0 left-0 right-0 sticky z-[999] relative">
+    <a href='/' alt="Scrunkly" class="absolute top-4 left-4">
+      <div class="flex flex-col justify-center items-center space-x-2 p-2 relative overflow-hidden">
+        {# <div class="absolute inset-0 border-4 border-bright skew-x-6 skew-y-6 pointer-events-none"></div> #}
+        <div class="w-12 h-12 overflow-hidden flex items-center justify-center relative z-10">
+          <img src="/assets/favicon.ico?v=2" class="w-full h-full object-contain"/>
+        </div>
+        <img src="/assets/logo.png" class="h-4 md:h-6 w-auto relative z-10"/>
+      </div>
+    </a>
+
+    <nav id="nav-menu" class="absolute right-4 z-[9999]">
+      {# <div class="fixed z-[9999] top-14 right-4 shadow-lg md:static p-4 text-sm md:flex-row items-center gap-6 font-bold"> #}
+      <div class="w-full grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="w-24 aspect-square bg-[url('/assets/scrunkly.jpeg')] rounded-lg bg-cover shadow-lg bg-center cursor-pointer overflow-hidden relative hover:scale-110 transition duration-300">
+          <a href="/" class="opacity-0 hover:opacity-100 bg-gradient-to-b from-transparent to-purple bg-opacity-0 hover:bg-opacity-80 absolute inset-0 flex items-end justify-center p-2">
+            <span class="text-xs text-text text-center">Scrunkly</span>
+          </a>
+        </div>
+
+        <div class="w-24 aspect-square bg-[url('/assets/sprunkr.jpeg')] rounded-lg bg-cover shadow-lg bg-center cursor-pointer overflow-hidden relative hover:scale-110 transition duration-300">
+          <a href="https://sprunkisprunkr.com/" class="opacity-0 hover:opacity-100 bg-gradient-to-b from-transparent to-purple bg-opacity-0 hover:bg-opacity-80 absolute inset-0 flex items-end justify-center p-2">
+            <span class="text-xs text-text text-center">Sprunkr</span>
+          </a>
+        </div>
+
+        <div class="hidden md:block w-24 aspect-square bg-[url('/assets/pyramixed.jpeg')] rounded-lg bg-cover shadow-lg bg-center cursor-pointer overflow-hidden relative hover:scale-110 transition duration-300">
+          <a href="https://pyramixed.icu/" class="opacity-0 hover:opacity-100 bg-gradient-to-b from-transparent to-purple bg-opacity-0 hover:bg-opacity-80 absolute inset-0 flex items-end justify-center p-2">
+            <span class="text-xs text-text text-center">pyramixed</span>
+          </a>
+        </div>
+
+        <div class="hidden md:block w-24 aspect-square bg-[url('/assets/sprunki-corruptbox-3.jpeg')] rounded-lg bg-cover shadow-lg bg-center cursor-pointer overflow-hidden relative hover:scale-110 transition duration-300">
+          <a href="/sprunki-corruptbox-3/" class="opacity-0 hover:opacity-100 bg-gradient-to-b from-transparent to-purple bg-opacity-0 hover:bg-opacity-80 absolute inset-0 flex items-end justify-center p-2">
+            <span class="text-xs text-text text-center">Corruptbox 3 x Sprunki</span>
+          </a>
+        </div>     
+       
+      </div>  
+       
+      </div>
+    </nav>
+  </header>
+
+  {{ content | safe }}
+  
+  <footer class="backdrop-blur-lg py-16 flex flex-col justify-center items-center text-center relative overflow-hidden">
+    {# <div class="absolute inset-0 border-8 border-white skew-x-3 skew-y-2 pointer-events-none"></div> #}
+    <div class="relative w-full h-80">
+      <div class="w-full h-full absolute top-0 left-0 flex flex-col items-center justify-center text-white">
+        <p class="text-2xl lg:text-4xl text-white font-black font-sans text-center italic">Immerse yourself in the Sprunki world!</p>
+        <p class="mt-2 text-sm lg:text-lg text-center text-white italic">Immersive Experience, Effortless Operation, Creating Music Has Never Been This Easy!</p>
+    
+        <a href='/' alt="Scrunkly" class="mt-10">
+          <div class="flex flex-col justify-center items-center space-x-2 p-2 relative overflow-hidden">
+            {# <div class="absolute inset-0 border-4 border-bright skew-x-6 skew-y-6 pointer-events-none"></div> #}
+            <div class="w-12 h-12 overflow-hidden flex items-center justify-center relative z-10">
+              <img src="/assets/favicon.ico?v=2" class="w-full h-full object-contain"/>
+            </div>
+            <img src="/assets/logo.png" class="h-6 md:h-8 w-auto relative z-10"/>
+          </div>
+        </a>
+        
+        <a href="/">
+          <button id="playButton" class="flex text-black items-center mt-6 h-10 bg-gradient-to-r from-purple to-white px-4 rounded-full hover:scale-125 transition duration-300 animate-bounce">
+            <img src="/assets/play.svg" alt="play game" class="w-5 h-5 mr-2 font-black"/> 
+            Start Now
+          </button>
+        </a>
+      </div>
+    </div>
+
+    <p class="text-xs mt-10">
+      Copyright ©
+      <span id="copyright"></span>
+      scrunkly.fun. All rights reserved.
+
+      <a href="/privacy/" class="text-white opacity-50">
+        Privacy Policy
+      </a>
+
+      <a href="https://github.com/sprunki-sprunkr/scrunkly" class="text-white opacity-50 ml-2">
+        GitHub
+      </a>
+    </p>
+  </footer>
+
+  <script>
+    document.getElementById('copyright').innerText = new Date().getFullYear() + '';
+    {# document.addEventListener("DOMContentLoaded", function() {
+      const currentUrl = window.location.pathname;
+      const navLinks = document.querySelectorAll('.nav-link');
+
+      navLinks.forEach(link => {
+        if (link.getAttribute('href') === currentUrl) {
+          link.classList.add('text-purple');
+        }
+      });
+    }); #}
+
+    {# document.getElementById('menu-toggle').addEventListener('click', function() {
+      const navMenu = document.getElementById('nav-menu');
+      navMenu.classList.toggle('hidden');
+    }); #}
+  </script>
+  <!-- For Analysis -->
+  <!-- plausible.io -->
+  <script defer data-domain="scrunkly.fun" src="https://app.pageview.app/js/script.js"></script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-3JVZNYLK83"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-3JVZNYLK83');
+  </script>
+  <!-- For Analysis -->
+
+</body>
+</html>

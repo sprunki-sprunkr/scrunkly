@@ -1,0 +1,105 @@
+---
+layout: base.njk
+---
+
+{% set currentSlug = page.fileSlug if page.fileSlug else "index" %}
+<!-- Main Content -->
+<main class="w-full max-w-[1300px] mx-auto pt-4 backdrop-blur-md">
+  <div class="flex flex-col lg:flex-row pb-10">
+    <!-- Left/Bottom sidebar -->
+    <aside class="w-full lg:w-1/6 p-4 order-2 md:order-2">
+      <div class="grid grid-cols-3 md:grid-cols-6 lg:grid-cols-2 gap-4">
+        {% for key,value in gamedata.left %}
+          {# {% if (key != currentSlug) %} #}
+            <div class="aspect-square bg-[url('{{ value.bgCover }}')] rounded-lg bg-cover shadow-lg bg-center cursor-pointer overflow-hidden relative hover:scale-110 transition duration-300">
+              <a href="{{ value.path }}" class="opacity-0 hover:opacity-100 bg-gradient-to-b from-transparent to-purple bg-opacity-0 hover:bg-opacity-80 absolute inset-0 flex items-end justify-center p-2">
+                <span class="text-xs text-text text-center">{{ value.name }}</span>
+              </a>
+            </div>
+          {# {% endif %} #}
+        {% endfor %}  
+      </div>
+    </aside>
+
+    <!-- Game iframe section -->
+    <section class="w-full lg:w-7/12 p-4 text-center order-1 lg:order-2">
+      {% set allGames = gamedata.left | merge(gamedata.right, gamedata.below) %}
+
+      <div id="gameContainer" class="relative bg-bright bg-opacity-20">
+        <iframe id="gameIframe" src="{{ allGames[currentSlug].iframeUrl }}" frameborder="0" class="w-full aspect-[4/3] transition-all duration-300 ease-in-out"></iframe>
+        <div id="iframeBar" class="absolute -bottom-10 left-0 right-0 h-14 bg-dark flex items-center justify-between px-4">
+          <div class="flex items-center">
+            <img src="{{ allGames[currentSlug].bgCover }}" alt="game icon" class="w-8 h-8 mr-2 rounded-lg">
+            <span class="text-white font-bold">{{ allGames[currentSlug].name }}</span>
+          </div>
+          <button id="fullscreenButton" class="flex items-center hover:opacity-80 transition-all duration-300 ease-in-out">
+            <img src="/assets/fullscreen.svg?v=2" alt="full screen" class="w-6 h-6">
+          </button>
+        </div>
+        <button id="exitFullscreenButton" class="fixed top-4 left-14 bg-dark bg-opacity-60 border-none p-2 rounded cursor-pointer text-sm transition-all duration-300 ease-in-out hover:bg-opacity-80 flex items-center hidden z-[9999] opacity-0">
+          <img src="/assets/exit.svg" alt="exit full screen" class="w-6 h-6">
+        </button>
+      </div>
+
+      <!-- below sidebar -->
+      <aside class="w-full mt-16">
+        <div class="grid grid-cols-3 md:grid-cols-6 gap-4">
+          {% for key,value in gamedata.below %}
+            {# {% if (key != currentSlug) %} #}
+              <div class="aspect-square bg-[url('{{ value.bgCover }}')] rounded-lg bg-cover shadow-lg bg-center cursor-pointer overflow-hidden relative hover:scale-110 transition duration-300">
+                <a href="{{ value.path }}" class="opacity-0 hover:opacity-100 bg-gradient-to-b from-transparent to-purple bg-opacity-0 hover:bg-opacity-80 absolute inset-0 flex items-end justify-center p-2">
+                  <span class="text-xs text-text text-center">{{ value.name }}</span>
+                </a>
+              </div>
+            {# {% endif %} #}
+          {% endfor %}  
+        </div>
+      </aside>
+      
+    </section>
+
+    <!-- Right sidebar -->
+    <aside class="w-full lg:w-1/4 p-4 order-3 md:order-3">
+      <div class="grid grid-cols-3 md:grid-cols-6 lg:grid-cols-3 gap-4">
+        {% for key,value in gamedata.right %}
+          {# {% if (key != currentSlug) %} #}
+            <div class="aspect-square bg-[url('{{ value.bgCover }}')] rounded-lg bg-cover shadow-lg bg-center cursor-pointer overflow-hidden relative hover:scale-110 transition duration-300">
+              <a href="{{ value.path }}" class="opacity-0 hover:opacity-100 bg-gradient-to-b from-transparent to-purple bg-opacity-0 hover:bg-opacity-80 absolute inset-0 flex items-end justify-center p-2">
+                <span class="text-xs text-text text-center">{{ value.name }}</span>
+              </a>
+            </div>
+          {# {% endif %} #}
+        {% endfor %}  
+      </div>
+    </aside>
+  </div>
+
+  {{ content | safe }}
+
+</main>
+
+<script type="module">
+  import { enterFullscreen, exitFullscreen, handleFullscreenChange } from '../js/fullscreen.js';
+
+  const gameContainer = document.getElementById('gameContainer');
+  const gameIframe = document.getElementById('gameIframe');
+  const fullscreenButton = document.getElementById('fullscreenButton');
+  const exitFullscreenButton = document.getElementById('exitFullscreenButton');
+
+  // Handle entering fullscreen
+  fullscreenButton.addEventListener('click', () => {
+    document.getElementById('iframeBar').classList.add('hidden');
+    enterFullscreen(gameContainer, gameIframe, fullscreenButton, exitFullscreenButton);
+  });
+
+  // Handle exiting fullscreen
+  exitFullscreenButton.addEventListener('click', () => {
+    document.getElementById('iframeBar').classList.remove('hidden');
+    exitFullscreen(gameContainer, gameIframe, fullscreenButton, exitFullscreenButton);
+  });
+
+  // Handle fullscreen change events
+  document.addEventListener('fullscreenchange', () => {
+    handleFullscreenChange(gameContainer, gameIframe, fullscreenButton, exitFullscreenButton);
+  });
+</script>
